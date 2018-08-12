@@ -15,7 +15,7 @@ public class UserDetail {
     @SerializedName("id_upline")
     private String idUpline;
 
-    public UserDetail(String idUser, String fullName, Integer levelCode, String idUpline){
+    public UserDetail(){
         this.idUser = idUser;
         this.fullName = fullName;
         this.levelCode = levelCode;

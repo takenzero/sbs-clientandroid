@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="dashboard_category_icon">
+        <item>@drawable/ic_person</item>
+        <item>@drawable/ic_peoples</item>
+        <item>@drawable/ic_shopping_cart</item>
+        <item>@drawable/ic_history</item>
+        <item>@drawable/ic_info</item>
+        <item>@drawable/ic_close</item>
+    </integer-array>
+
+    <string-array name="dashboard_category_title">
+        <item>Profil Saya</item>
+        <item>Downline Saya</item>
+        <item>Transaksi</item>
+        <item>History Transaksi</item>
+        <item>Tentang</item>
+        <item>Keluar</item>
+    </string-array>
+</resources>

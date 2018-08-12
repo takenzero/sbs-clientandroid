@@ -12,7 +12,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
-
     @POST("auth/login")
-    Call<LoginResp> postLogin(@Header("Client-Service") String clientService, @Header("Auth-Key") String authKey, @Body LoginReq body);
+    Call<LoginResp> postLogin(@Header("Client-Service") String clientService,
+                              @Header("Auth-Key") String authKey,
+                              @Body LoginReq body);
 }
