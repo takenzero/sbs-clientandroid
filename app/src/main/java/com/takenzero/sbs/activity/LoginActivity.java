@@ -9,6 +9,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,10 +19,15 @@ import com.takenzero.sbs.R;
 import com.takenzero.sbs.model.Header;
 import com.takenzero.sbs.model.LoginReq;
 import com.takenzero.sbs.model.LoginResp;
+import com.takenzero.sbs.model.UserDetail;
 import com.takenzero.sbs.rest.ApiClient;
 import com.takenzero.sbs.rest.ApiInterface;
+import com.takenzero.sbs.session.Session;
 
 import org.w3c.dom.Text;
+
+import java.io.Serializable;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,9 +39,11 @@ public class LoginActivity extends AppCompatActivity {
     private String AUTH_KEY = h.getAuthKey();
     EditText edtIdUser;
     EditText edtPassword;
+    CheckBox ckbAutoLogin;
     MaterialRippleLayout btnLogin;
     ApiInterface apiService;
     private ProgressDialog pDialog;
+    Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +52,17 @@ public class LoginActivity extends AppCompatActivity {
 
         edtIdUser = (EditText) findViewById(R.id.login_id_user);
         edtPassword = (EditText) findViewById(R.id.login_password);
+        ckbAutoLogin = (CheckBox) findViewById(R.id.check_autologin);
         apiService = ApiClient.getClient().create(ApiInterface.class);
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
+        session = new Session(this);
+
+        if (session.loggedin()){
+            Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
+            startActivity(i);
+            finish();
+        }
 
         btnLogin = (MaterialRippleLayout) findViewById(R.id.login_btnSignIn);
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -80,8 +96,12 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     switch (response.code()){
                         case 200:
-//                            Toast.makeText(getApplicationContext(),response.body().getTokenCode(), Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                            if (ckbAutoLogin.isChecked()) {
+                                session.setLoggedin(true);
+                            }
+
+                            Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
+                            startActivity(i);
                             finish();
                             break;
                         default:

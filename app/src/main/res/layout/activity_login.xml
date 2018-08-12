@@ -108,6 +108,7 @@
                         android:layout_height="@dimen/spacing_middle" />
 
                     <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/check_autologin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="-4dp"
@@ -116,7 +117,7 @@
                         android:text="Login otomatis"
                         android:textColor="@color/blue_600"
                         android:textStyle="bold"
-                        android:theme="@style/Checkbox.Blue" />
+                        android:theme="@style/Checkbox.Blue"/>
 
                     <!--<View
                         android:layout_width="0dp"
