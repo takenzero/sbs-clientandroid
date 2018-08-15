@@ -14,8 +14,8 @@ public class LoginResp {
     @SerializedName("token_code")
     private String tokenCode;
 
-    @SerializedName("user")
-    private List<UserDetail> userDetail;
+    @SerializedName("id_user")
+    private String idUser;
 
     public String getStatus(){
         return status;
@@ -41,11 +41,11 @@ public class LoginResp {
         this.tokenCode = tokenCode;
     }
 
-    public List<UserDetail> getUserDetail() {
-        return userDetail;
+    public String getIdUser() {
+        return idUser;
     }
 
-    public void setUserDetail(List<UserDetail> userDetail){
-        this.userDetail = userDetail;
+    public void setIdUser(String idUser){
+        this.idUser = idUser;
     }
 }

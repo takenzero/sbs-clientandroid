@@ -2,6 +2,7 @@ package com.takenzero.sbs.rest;
 
 import com.takenzero.sbs.model.LoginReq;
 import com.takenzero.sbs.model.LoginResp;
+import com.takenzero.sbs.model.UserDetail;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -16,4 +17,10 @@ public interface ApiInterface {
     Call<LoginResp> postLogin(@Header("Client-Service") String clientService,
                               @Header("Auth-Key") String authKey,
                               @Body LoginReq body);
+
+    @GET("user/detail")
+    Call<UserDetail> getLogin(@Header("Client-Service") String clientService,
+                              @Header("Auth-Key") String authKey,
+                              @Header("USER-ID") String idUser,
+                              @Header("Authorization") String tokenCode);
 }

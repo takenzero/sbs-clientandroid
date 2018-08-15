@@ -11,23 +11,15 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.takenzero.sbs.R;
 import com.takenzero.sbs.model.Header;
 import com.takenzero.sbs.model.LoginReq;
 import com.takenzero.sbs.model.LoginResp;
-import com.takenzero.sbs.model.UserDetail;
 import com.takenzero.sbs.rest.ApiClient;
 import com.takenzero.sbs.rest.ApiInterface;
 import com.takenzero.sbs.session.Session;
-
-import org.w3c.dom.Text;
-
-import java.io.Serializable;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -59,9 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         session = new Session(this);
 
         if (session.loggedin()){
-            Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
-            startActivity(i);
-            finish();
+            goToDashboard();
         }
 
         btnLogin = (MaterialRippleLayout) findViewById(R.id.login_btnSignIn);
@@ -85,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    protected void doLogin(String idUser, String password){
+    protected void doLogin(final String idUser, String password){
         pDialog.setMessage("Sedang login ..");
         showDialog();
 
@@ -93,22 +83,22 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<LoginResp>() {
             @Override
             public void onResponse(Call<LoginResp>call, Response<LoginResp> response) {
-                if (response.isSuccessful()){
-                    switch (response.code()){
-                        case 200:
-                            if (ckbAutoLogin.isChecked()) {
-                                session.setLoggedin(true);
-                            }
-
-                            Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
+                if (response.isSuccessful()) switch (response.code()) {
+                    case 200:
+                        if (ckbAutoLogin.isChecked()) {
+                            session.setLoggedin(true);
+                            session.setIdUser(idUser);
+                        }
+                        goToDashboard();
+                            /*Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
                             startActivity(i);
-                            finish();
-                            break;
-                        default:
-                            showAlertDialog("Alert204");
-                            break;
-                    }
-                }else{
+                            finish();*/
+                        break;
+                    default:
+                        showAlertDialog("Alert204");
+                        break;
+                }
+                else{
                     showAlertDialog("AlertDefault");
                 }
             }
@@ -133,12 +123,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showAlertDialog(String type) {
         final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_alert_defaultfailur);
 
         if (type.equals("EmptyIDPassword")) {
             dialog.setContentView(R.layout.dialog_alert_emptyuserpassword);
         }
+
         if (type.equals("Alert204")) {
             dialog.setContentView(R.layout.dialog_alert_wronguserpassword);
         }
@@ -161,6 +152,12 @@ public class LoginActivity extends AppCompatActivity {
 
         dialog.show();
         dialog.getWindow().setAttributes(lp);
+    }
+
+    protected void goToDashboard(){
+        Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
+        startActivity(i);
+        finish();
     }
 
 }

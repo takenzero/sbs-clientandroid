@@ -23,4 +23,13 @@ public class Session {
         return pref.getBoolean("LoggedInMode", false);
     }
 
+    public void setIdUser(String idUser){
+        edtr.putString("ID_USER", idUser);
+        edtr.commit();
+    }
+
+    public String getIdUser(){
+        return pref.getString("ID_USER", null);
+    }
+
 }

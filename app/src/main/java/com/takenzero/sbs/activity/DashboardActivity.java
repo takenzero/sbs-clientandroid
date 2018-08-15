@@ -1,6 +1,7 @@
 package com.takenzero.sbs.activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,15 +18,16 @@ import com.takenzero.sbs.R;
 import com.takenzero.sbs.adapter.DashboardAdapter;
 import com.takenzero.sbs.data.DataGenerator;
 import com.takenzero.sbs.model.DashboardCategory;
-import com.takenzero.sbs.model.UserDetail;
+import com.takenzero.sbs.session.Session;
 import com.takenzero.sbs.util.Tools;
 import com.takenzero.sbs.widget.SpacingItemDecoration;
 
 import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
-    private View parent_view;
+//    private Session session;
 
+    private View parent_view;
     private RecyclerView recyclerView;
     private DashboardAdapter mAdapter;
 
@@ -35,6 +37,8 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         parent_view = findViewById(R.id.parent_view_dashboard);
 
+//        session = new Session(this);
+//        Snackbar.make(parent_view, "ID User from Session: "+session.getIdUser(), Snackbar.LENGTH_SHORT).show();
         initToolbar();
         initComponent();
     }
@@ -64,6 +68,9 @@ public class DashboardActivity extends AppCompatActivity {
                 switch (position){
                     case 5:
                         showConfirmationExit();
+                        break;
+                    case 0:
+                        goToProfile();
                         break;
                     default:
                         Snackbar.make(parent_view, "Item: " + obj.title + " Position: " + position + " clicked", Snackbar.LENGTH_SHORT).show();
@@ -101,6 +108,11 @@ public class DashboardActivity extends AppCompatActivity {
 
         dialog.show();
         dialog.getWindow().setAttributes(lp);
+    }
+
+    private void goToProfile(){
+        Intent i = new Intent(DashboardActivity.this, ProfileActivity.class);
+        startActivity(i);
     }
 
     @Override
