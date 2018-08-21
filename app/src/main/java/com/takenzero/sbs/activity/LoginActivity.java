@@ -3,6 +3,7 @@ package com.takenzero.sbs.activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
@@ -36,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
     ApiInterface apiService;
     private ProgressDialog pDialog;
     Session session;
+
+    SharedPreferences shared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     protected void doLogin(final String idUser, String password){
-        pDialog.setMessage("Sedang login ..");
+        pDialog.setMessage("Sedang diproses ..");
         showDialog();
 
         Call<LoginResp> call = apiService.postLogin(CLIENT_SERVICE,AUTH_KEY,new LoginReq(idUser,password));
@@ -87,12 +90,12 @@ public class LoginActivity extends AppCompatActivity {
                     case 200:
                         if (ckbAutoLogin.isChecked()) {
                             session.setLoggedin(true);
-                            session.setIdUser(idUser);
                         }
+
+                        session.setIdUser(idUser);
+                        session.setAuthorization(response.body().getTokenCode());
+
                         goToDashboard();
-                            /*Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
-                            startActivity(i);
-                            finish();*/
                         break;
                     default:
                         showAlertDialog("Alert204");
@@ -108,7 +111,6 @@ public class LoginActivity extends AppCompatActivity {
                 showAlertDialog("AlertDefault");
             }
         });
-        hideDialog();
     }
 
     private void showDialog() {
@@ -122,6 +124,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showAlertDialog(String type) {
+        hideDialog();
+
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_alert_defaultfailur);
@@ -155,6 +159,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     protected void goToDashboard(){
+        hideDialog();
+
         Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
         startActivity(i);
         finish();

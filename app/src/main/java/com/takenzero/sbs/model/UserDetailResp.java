@@ -4,41 +4,31 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-public class UserDetail {
+public class UserDetailResp {
     @SerializedName("id_user")
     private String idUser;
-
     @SerializedName("name")
     private String fullName;
-
     @SerializedName("id_type")
     private String idType;
-
     @SerializedName("id_number")
     private String idNumber;
-
     @SerializedName("phone")
     private String phone;
-
     @SerializedName("level_code")
-    private Integer levelCode;
-
+    private String levelCode;
     @SerializedName("id_upline")
     private String idUpline;
-
     @SerializedName("creation_date")
-    private Date creationDate;
-
-    public UserDetail(String idUser, String fullName, String idType, String idNumber, String phone, Integer levelCode, String idUpline, Date creationDate){
-        this.idUser = idUser;
-        this.fullName = fullName;
-        this.idType = idType;
-        this.idNumber = idNumber;
-        this.phone = phone;
-        this.levelCode = levelCode;
-        this.idUpline = idUpline;
-        this.creationDate = creationDate;
-    }
+    private String creationDate;
+    @SerializedName("total_downline")
+    private String totalDownline;
+    @SerializedName("count_left")
+    private String countLeft;
+    @SerializedName("count_right")
+    private String countRight;
+    @SerializedName("actual_balance")
+    private String actualBalance;
 
     public String getIdUser(){
         return idUser;
@@ -72,11 +62,11 @@ public class UserDetail {
         this.idNumber = idNumber;
     }
 
-    public Integer getLevelCode() {
+    public String getLevelCode() {
         return levelCode;
     }
 
-    public void setLevelCode(Integer levelCode){
+    public void setLevelCode(String levelCode){
         this.levelCode = levelCode;
     }
 
@@ -88,11 +78,43 @@ public class UserDetail {
         this.idUpline = idUpline;
     }
 
-    public Date getCreationDate(){
+    public String getCreationDate(){
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate){
+    public void setCreationDate(String creationDate){
         this.creationDate = creationDate;
+    }
+
+    public String getTotalDownline(){
+        return totalDownline;
+    }
+
+    public void setTotalDownline(String totalDownline){
+        this.totalDownline = totalDownline;
+    }
+
+    public String getCountLeft(){
+        return countLeft;
+    }
+
+    public void setCountLeft(String countLeft){
+        this.countLeft = countLeft;
+    }
+
+    public String getCountRight(){
+        return countRight;
+    }
+
+    public void setCountRight(String countRight){
+        this.countRight = countRight;
+    }
+
+    public String getActualBalance(){
+        return actualBalance;
+    }
+
+    public void setActualBalance(String actualBalance){
+        this.actualBalance = actualBalance;
     }
 }

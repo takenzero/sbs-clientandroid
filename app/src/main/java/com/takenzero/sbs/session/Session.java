@@ -32,4 +32,13 @@ public class Session {
         return pref.getString("ID_USER", null);
     }
 
+    public void setAuthorization(String authorization){
+        edtr.putString("Authorization", authorization);
+        edtr.commit();
+    }
+
+    public String getAuthorization(){
+        return pref.getString("Authorization", null);
+    }
+
 }
