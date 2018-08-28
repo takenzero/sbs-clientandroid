@@ -1,5 +1,6 @@
 package com.takenzero.sbs.rest;
 
+import com.takenzero.sbs.model.DownlineResp;
 import com.takenzero.sbs.model.LoginReq;
 import com.takenzero.sbs.model.LoginResp;
 import com.takenzero.sbs.model.UserDetailResp;
@@ -22,4 +23,10 @@ public interface ApiInterface {
                                        @Header("Auth-Key") String authKey,
                                        @Header("Authorization") String tokenCode,
                                        @Path("id_user") String idUser);
+
+    @GET("user/downline/{id_user}")
+    Call<DownlineResp> getDownline(@Header("Client-Service") String clientService,
+                                   @Header("Auth-Key") String authKey,
+                                   @Header("Authorization") String tokenCode,
+                                   @Path("id_user") String idUser);
 }

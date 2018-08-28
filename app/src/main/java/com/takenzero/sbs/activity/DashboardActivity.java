@@ -25,9 +25,6 @@ import com.takenzero.sbs.widget.SpacingItemDecoration;
 import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
-//    private Session session;
-
-    private View parent_view;
     private RecyclerView recyclerView;
     private DashboardAdapter mAdapter;
 
@@ -35,7 +32,6 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        parent_view = findViewById(R.id.parent_view_dashboard);
 
 //        session = new Session(this);
 //        Snackbar.make(parent_view, "ID User from Session: "+session.getIdUser(), Snackbar.LENGTH_SHORT).show();
@@ -69,11 +65,14 @@ public class DashboardActivity extends AppCompatActivity {
                     case 5:
                         showConfirmationExit();
                         break;
+                    case 1:
+                        goToDownline();
+                        break;
                     case 0:
                         goToProfile();
                         break;
                     default:
-                        Snackbar.make(parent_view, "Item: " + obj.title + " Position: " + position + " clicked", Snackbar.LENGTH_SHORT).show();
+                        Toast.makeText(DashboardActivity.this, "Item: " + obj.title + " Position: " + position + " clicked", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -112,6 +111,11 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void goToProfile(){
         Intent i = new Intent(DashboardActivity.this, ProfileActivity.class);
+        startActivity(i);
+    }
+
+    private void goToDownline(){
+        Intent i = new Intent(DashboardActivity.this, DownlineAllActivity.class);
         startActivity(i);
     }
 

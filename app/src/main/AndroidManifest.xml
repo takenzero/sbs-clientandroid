@@ -21,6 +21,7 @@
         </activity>
         <activity android:name=".activity.DashboardActivity" />
         <activity android:name=".activity.ProfileActivity" />
+        <activity android:name=".activity.DownlineAllActivity" />
     </application>
 
 </manifest>
